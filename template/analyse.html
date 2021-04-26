@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+{% for mess in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role='alert' >
+        <button type="button" class="fade close" data-dismiss='alert' aria-label='Close'>
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{mess}}
+    </div>
+{% endfor %}
+<div class="ct-chart ct-perfect-fourth"></div>
+
+<script>
+    class chart{
+        constructor(Xdata, Ydata, width, height)
+        {
+            this.Xdata = Xdata;
+            this.Ydata = Ydata;
+            this.width = width;
+            this.height = height;
+        }
+        create()
+        {
+            var data = 
+            {
+                labels: this.Xdata,
+                series: [
+                    this.Ydata
+                ]
+            }
+            var options = {
+                width : this.width,
+                height : this.height,
+                axisX :{
+                    showGrid:true,
+                    showLabel:true,
+                    backgroundColor:['#49A9EA','#36CAAB','#34495E','#B370CF','#AC5353','#CFD4D8','#36CAAB'] 
+                },
+                axisY:{
+                    offset:60
+                }
+            };
+        new Chartist.Line('.ct-chart',data, options);
+        }
+    }
+    // var Xdata = ['Mon','tue','wed','thur','frid'];
+    // var Ydata = [9,5,3,4,8];
+    // var Xdata = JSON.parse("{{action_names}}");
+    // var Ydata = JSON.parse("{{action_counts}}");
+    // Chart.defaults.global.defaultFontColor = 'red';
+    var Xdata = [
+    "Standing", 
+    "Walking", 
+    "Sitting", 
+    "Lying Down", 
+    "Stand up", 
+    "Sit down", 
+    "Fall Down"
+  ]
+    var Ydata = $.get('/ydata')
+    var t = Ydata.done(function (resp)
+    {
+        console.log("json",resp.ydata);
+        var obj = new chart(Xdata,resp.ydata, 600, 600);
+        obj.create();
+    } )
+
+    
+</script>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

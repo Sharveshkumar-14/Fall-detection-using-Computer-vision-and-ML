@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- <div class="w3-container" style="margin-top:80px" id="showcase"> -->
+<div class="card w-60 shadow-lg p-5 m-5 text-center">
+    <!-- <input type="button" value="HELLO" class="btn btn-primary"> -->
+    <h1 class="w3-xxxlarge w3-text-red p-5 pt-1"><b>Configuration</b></h1>
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+        {{ form.videosource.label }} {{ form.videosource() }}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{ form.outputdirectory.label }} {{ form.outputdirectory() }}
+        <br>
+        <br>
+        {{ form.submit() }}
+        
+    </form>
+</div>
+<!-- </div> -->
+
+{% endblock %}
